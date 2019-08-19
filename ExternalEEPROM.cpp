@@ -70,9 +70,10 @@ void EEProto::operator >>=(uint8_t in) {
   b = uint8_t(b) >> in;
 }
 
-ExternalEEPROM::ExternalEEPROM(long len, uint8_t addr = 0x80) {
+ExternalEEPROM::ExternalEEPROM(long len, uint8_t addr) {
   _length = len;
   _addr = addr;
+  Wire.begin();
 }
 
 EEProto ExternalEEPROM::operator[](long index) {
