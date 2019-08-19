@@ -26,7 +26,7 @@ class EEProto {
 
 class ExternalEEPROM {
     public:
-      ExternalEEPROM(long len, uint8_t addr = 0x80);
+      ExternalEEPROM(long len, uint8_t addr = 0x50);
       EEProto operator[](long index);
       uint8_t read(long index);
       void write(long index, uint8_t data);

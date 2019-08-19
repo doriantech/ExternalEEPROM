@@ -7,7 +7,7 @@
  */
 
 #include <ExternalEEPROM.h>
-ExternalEEPROM EEPROM(AT24C32,0x80); //Change model and address to yours.
+ExternalEEPROM EEPROM(AT24C32,0x50); //Change model and address to yours.
 // start reading from the first byte (address 0) of the EEPROM
 int address = 0;
 byte value;
