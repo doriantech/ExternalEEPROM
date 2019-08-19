@@ -1,1 +1,5 @@
 ExternalEEPROM KEYWORD1
+read KEYWORD2
+update KEYWORD2
+write KEYWORD2
+length KEYWORD2
