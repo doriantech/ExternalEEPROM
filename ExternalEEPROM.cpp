@@ -1,4 +1,5 @@
 #include "ExternalEEPROM.h"
+#include <Wire.h>
 ExternalEEPROM::ExternalEEPROM(int z) {
   y = z;
 }
