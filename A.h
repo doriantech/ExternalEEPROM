@@ -1,8 +1,8 @@
-#ifndef A_INCLUDE
-#define A_INCLUDE
-class A {
+#ifndef EXTERNAL_EEPROM_H
+#define EXTERNAL_EEPROM_H
+class ExternalEEPROM {
   public:
-    A(int z);
+    ExternalEEPROM(int z);
     int operator [](int x);
   private:
     int y;
