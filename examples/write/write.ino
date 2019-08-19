@@ -7,7 +7,7 @@
  */
 
 #include <ExternalEEPROM.h>
-ExternalEEPROM EEPROM(AT24C32,0x80); //Change model and address to yours.
+ExternalEEPROM EEPROM(AT24C32,0x50); //Change model and address to yours.
 
 /** the current address in the EEPROM (i.e. which byte we're going to write to next) **/
 int addr = 0;
