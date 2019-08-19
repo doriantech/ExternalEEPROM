@@ -3,7 +3,7 @@
 #include "ExternalEEPROM.h"
 
 EEProto::EEProto(long index,uint8_t addr) {
-    _index = index;
+  _index = index;
   _addr = addr;
 }
 
@@ -70,7 +70,7 @@ void EEProto::operator >>=(uint8_t in) {
   b = uint8_t(b) >> in;
 }
 
-ExternalEEPROM::ExternalEEPROM(long len, uint8_t addr) {
+ExternalEEPROM::ExternalEEPROM(long len, uint8_t addr = 0x80) {
   _length = len;
   _addr = addr;
 }
