@@ -1,4 +1,4 @@
-#include <A.h>
+#include <ExternalEEPROM.h>
 A x(2);
 void setup() 
   Serial.begin(9600);
