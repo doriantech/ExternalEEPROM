@@ -3,9 +3,19 @@
 #include <Wire.h>
 #ifndef EXTERNALEEPROM_H
 #define EXTERNALEEPROM_H
+#define AT24C512 65536L
+#define AT24C256 32768L
+#define AT24C128 16384L
+#define AT24C64 8192L
+#define AT24C32 4096L
+#define AT24C16 2048L
+#define AT24C08 1024L
+#define AT24C04 512L
+#define AT24C02 256L
+#define AT24C01 128L
 class EEProto {
     public:
-      EEProto(long index,uint8_t addr);
+      EEProto(long index,uint8_t addr,long length);
       operator uint8_t() const;
       void operator =(uint8_t in);
       void operator +=(uint8_t in);
@@ -20,6 +30,7 @@ class EEProto {
       void operator >>=(uint8_t in);
     private:
       long _index;
+      long _length;
       uint8_t _addr;
 };
 
@@ -36,14 +47,4 @@ class ExternalEEPROM {
       long _length;
       uint8_t _addr;
 };
-
-#define AT24C256 32768L
-#define AT24C128 16384L
-#define AT24C64 8192L
-#define AT24C32 4096L
-#define AT24C16 2048L
-#define AT24C08 1024L
-#define AT24C04 512L
-#define AT24C02 256L
-#define AT24C01 128L
 #endif

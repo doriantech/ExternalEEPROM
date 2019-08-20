@@ -3,18 +3,26 @@
 #include <Wire.h>
 #include "ExternalEEPROM.h"
 
-EEProto::EEProto(long index,uint8_t addr) {
+EEProto::EEProto(long index,uint8_t addr,long length) {
   _index = index;
   _addr = addr;
+  _length = length;
 }
 
 EEProto::operator uint8_t() const {
   uint8_t c;
-    Wire.beginTransmission(_addr);
-  Wire.write(_index >> 8);
+  uint8_t a = _addr;
+  if(_length < 4096) {
+    a &= ~(uint8_t((_length-1) >> 8));
+    a |= uint8_t((_index-1) >> 8);
+  }
+  Wire.beginTransmission(a);
+  if(_length >= 4096) {
+    Wire.write(_index >> 8);
+  }
   Wire.write(_index & 0xFF);
   Wire.endTransmission();
-  Wire.requestFrom(_addr, 1);
+  Wire.requestFrom(a, 1);
   while (Wire.available()) {
     c = Wire.read();
   }
@@ -22,8 +30,16 @@ EEProto::operator uint8_t() const {
 }
 
 void EEProto::operator =(uint8_t in) {
-    Wire.beginTransmission(_addr);
-  Wire.write(_index >> 8);
+  
+  uint8_t a = _addr;
+  if(_length < 4096) {
+    a &= ~(uint8_t((_length-1) >> 8));
+    a |= uint8_t((_index-1) >> 8);
+  }
+  Wire.beginTransmission(a);
+  if(_length >= 4096) {
+    Wire.write(_index >> 8);
+  }
   Wire.write(_index & 0xFF);
   Wire.write(in);
   Wire.endTransmission();
@@ -31,43 +47,43 @@ void EEProto::operator =(uint8_t in) {
 }
 
 void EEProto::operator +=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) + in;
 }
 void EEProto::operator -=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) - in;
 }
 void EEProto::operator *=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) * in;
 }
 void EEProto::operator /=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) / in;
 }
 void EEProto::operator ^=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) ^ in;
 }
 void EEProto::operator %=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) % in;
 }
 void EEProto::operator &=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) & in;
 }
 void EEProto::operator |=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) | in;
 }
 void EEProto::operator <<=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) << in;
 }
 void EEProto::operator >>=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) >> in;
 }
 
@@ -78,22 +94,22 @@ ExternalEEPROM::ExternalEEPROM(long len, uint8_t addr) {
 }
 
 EEProto ExternalEEPROM::operator[](long index) {
-    EEProto a(index,_addr);
+    EEProto a(index,_addr,_length);
     return a;
 }
 
 uint8_t ExternalEEPROM::read(long index) {
-  EEProto a(index,_addr);
+  EEProto a(index,_addr,_length);
   return uint8_t(a);
 }
 
 void ExternalEEPROM::write(long index, uint8_t data) {
-  EEProto a(index,_addr);
+  EEProto a(index,_addr,_length);
   a = data;
 }
 
 void ExternalEEPROM::update(long index, uint8_t data) {
-  EEProto a(index,_addr);
+  EEProto a(index,_addr,_length);
   if(a != data) {
     a = data;
   }
