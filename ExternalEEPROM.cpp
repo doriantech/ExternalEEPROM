@@ -13,8 +13,8 @@ EEProto::operator uint8_t() const {
   uint8_t c;
   uint8_t a = _addr;
   if(_length < 4096) {
-    a &= ~(uint_8_t((_length-1) >> 8));
-    a |= uint_8_t((_index-1) >> 8);
+    a &= ~(uint8_t((_length-1) >> 8));
+    a |= uint8_t((_index-1) >> 8);
   }
   Wire.beginTransmission(a);
   if(_length >= 4096) {
@@ -33,8 +33,8 @@ void EEProto::operator =(uint8_t in) {
   
   uint8_t a = _addr;
   if(_length < 4096) {
-    a &= ~(uint_8_t((_length-1) >> 8));
-    a |= uint_8_t((_index-1) >> 8);
+    a &= ~(uint8_t((_length-1) >> 8));
+    a |= uint8_t((_index-1) >> 8);
   }
   Wire.beginTransmission(a);
   if(_length >= 4096) {
