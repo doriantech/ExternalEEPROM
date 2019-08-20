@@ -47,43 +47,43 @@ void EEProto::operator =(uint8_t in) {
 }
 
 void EEProto::operator +=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) + in;
 }
 void EEProto::operator -=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) - in;
 }
 void EEProto::operator *=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) * in;
 }
 void EEProto::operator /=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) / in;
 }
 void EEProto::operator ^=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) ^ in;
 }
 void EEProto::operator %=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) % in;
 }
 void EEProto::operator &=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) & in;
 }
 void EEProto::operator |=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) | in;
 }
 void EEProto::operator <<=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) << in;
 }
 void EEProto::operator >>=(uint8_t in) {
-  EEProto b(_index,_addr);
+  EEProto b(_index,_addr,_length);
   b = uint8_t(b) >> in;
 }
 
@@ -94,22 +94,22 @@ ExternalEEPROM::ExternalEEPROM(long len, uint8_t addr) {
 }
 
 EEProto ExternalEEPROM::operator[](long index) {
-    EEProto a(index,_addr);
+    EEProto a(index,_addr,_length);
     return a;
 }
 
 uint8_t ExternalEEPROM::read(long index) {
-  EEProto a(index,_addr);
+  EEProto a(index,_addr,_length);
   return uint8_t(a);
 }
 
 void ExternalEEPROM::write(long index, uint8_t data) {
-  EEProto a(index,_addr);
+  EEProto a(index,_addr,_length);
   a = data;
 }
 
 void ExternalEEPROM::update(long index, uint8_t data) {
-  EEProto a(index,_addr);
+  EEProto a(index,_addr,_length);
   if(a != data) {
     a = data;
   }
